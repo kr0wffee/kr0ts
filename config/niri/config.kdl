@@ -1,0 +1,339 @@
+// Settings, that should be enabled by default
+prefer-no-csd
+screenshot-path null
+// I don't use xdg-autostart btw
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "/home/nkee/.config/kr0ts/scripts/mpvwalls-daemon.sh"
+spawn-at-startup "swww-daemon"
+spawn-at-startup "telegram-desktop"
+spawn-at-startup "cider"
+spawn-at-startup "steam"
+spawn-at-startup "lutris"
+
+
+input {
+    // I'm used to cursor following behavior (guess others too) so I enable these options
+    warp-mouse-to-focus
+    focus-follows-mouse
+    // You may not believe me, but I REALLY need layout switching feature :)
+    keyboard {
+        xkb {
+            layout "us,ru"
+            options "grp:alt_shift_toggle,compose:ralt,ctrl:nocaps"
+        }
+    }
+    // Never understand guys using acceleration
+    mouse {
+        accel-speed 1.0
+        accel-profile "flat"
+        scroll-method "no-scroll"
+    }
+}
+
+// Yea, am a filthy reach boy with 2 displays
+output "DP-1" {
+    mode "2560x1440@164.999"
+    scale 1.0
+    variable-refresh-rate
+    focus-at-startup
+    position x=1920 y=0
+}
+output "HDMI-A-1" {
+    mode "1920x1080@60"
+    scale 1.0
+    position x=0 y=360
+}
+
+// Great config - default config (almost)
+layout {
+    gaps 24
+    // Making workspace color completely invisible (I really like it)
+    background-color "#00000000"
+    center-focused-column "never"
+    always-center-single-column
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+    default-column-width { proportion 0.5; }
+    // WTF, why do I've to declare this section off manually?
+    focus-ring {
+	off
+    }
+    // YEAA, thunderarrow (rainbow)
+    border {
+        width 6
+        active-gradient from="#36639b" to="#633641" angle=20
+        inactive-gradient from="#381022" to="#102038" angle=20
+    }
+    // Shadow Fight 2 Niri's Edition
+    shadow {
+        on
+        softness 15
+        spread 3
+        offset x=0 y=5
+        color "#0007"
+    }
+    // Tab tap tap
+    tab-indicator {
+	width 6
+	gap 4
+	length total-proportion=0.5
+	position "left"
+	gaps-between-tabs 8
+	corner-radius 14
+	active-color "#633641"
+        inactive-color "#36639b"
+    }
+    // I want to make it more roOuUndlY((
+    insert-hint {
+	gradient from="#36639b80" to="#63364180" angle=45
+    }
+    // I wonder if there'r guys don't use struts in Niri
+    struts {
+        left 64
+        right 64
+        top 16
+        bottom 16
+    }
+}
+
+// Just workspaces, just named here
+workspace "net" {
+    open-on-output "DP-1"
+}
+workspace "games" {
+    open-on-output "DP-1"
+}
+
+// Should I describe this?
+environment {
+    DISPLAY ":0"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    _JAVA_AWT_WM_NONREPARENTING "1"
+}
+
+// Nice Cursor
+cursor {
+    xcursor-theme "Kiana"
+    xcursor-size 24
+}
+
+// Make an overview a bit larger (or smaller) and visible workspaces (cuz i turned off their bg)
+overview {
+    zoom 0.4
+    workspace-shadow {
+        softness 60
+	spread 10
+	offset x=0 y=0
+	color "#346dd8"
+    }
+}
+
+// I know how to use MINE binds, don't teach me
+hotkey-overlay {
+    skip-at-startup
+}
+
+// Very nice section
+animations {
+}
+
+
+// Draw all windows without ugly border-bg behind 'em
+window-rule {
+    draw-border-with-background false
+}
+
+// Send windows to the second display
+window-rule {
+    match app-id=r#"^nekobox$"#
+    match app-id=r#"^org\.telegram\.desktop$"# 
+    match app-id=r#"^Cider$"#
+
+    open-on-output "HDMI-A-1"
+}
+
+// Send game windows to the "games" workspace
+window-rule {
+    match app-id=r#"^net.lutris.Lutris$"#
+    match app-id=r#"^steam$"#
+
+    open-on-workspace "games"
+}
+
+// This rule opens windows more widely
+window-rule {
+    match app-id=r#"^Cider$"#
+    match app-id=r#"firefox$"#
+
+    default-column-width { proportion 0.66667; }
+}
+
+// Maximized windows from start
+window-rule {
+    match app-id=r#"^org\.telegram\.desktop$"# 
+
+    open-maximized true
+}
+
+// Fullscreen windows from start
+window-rule {
+    match app-id="swayimg"
+
+    open-fullscreen true
+}
+
+// Enable floating mode for some apps
+window-rule {
+    match app-id=r#"firefox$"# title="^Картинка в картинке$"
+    match app-id=r#"firefox$"# title="^Библиотека$"
+    match app-id=r#"org.gnome.FileRoller"#
+    match app-id=r#"^steam$"# title="^(Настройки|Список друзей)$"
+
+    open-floating true
+}
+
+// Enable a bit of opacity for innactive windows
+window-rule {
+    match is-active=false
+    opacity 0.9
+}
+// Enable even less opacity for active windows
+window-rule {
+    match is-active=true
+    opacity 0.98
+}
+// Override terminal-active opacity
+window-rule {
+    match app-id=r#"^Alacritty$"# is-active=true
+    opacity 0.93
+}
+// Override opacity.. man, I just wanna watch youtube without visible bg layer..
+window-rule {
+    match app-id=r#"firefox$"# is-active=true
+    match app-id=r#"firefox$"# title="^Картинка в картинке$"    
+    match app-id=r#"^org\.telegram\.desktop$"#
+    opacity 1.0
+}
+// Draw all windows with round corners
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+// This rule allow to see wallpaper in Overview mode 
+layer-rule {
+    match namespace="^swww-daemon$"
+    match namespace="^mpvpaper$"
+    place-within-backdrop true
+}
+
+
+// I don't really want to describe every bind, you already know what to do
+binds {
+    Mod+Return  { spawn "alacritty"; }
+    Mod+E       { spawn "nautilus"; }
+    Mod+D 	{ spawn "wofi" "--show" "drun"; }
+    Mod+Q 	{ close-window; }
+
+    Mod+Shift+Z { spawn "/home/nkee/.config/kr0ts/scripts/toggle-mpv.sh"; }
+
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+
+    Mod+Ctrl+Left  { move-column-left; }
+    Mod+Ctrl+Down  { move-window-down; }
+    Mod+Ctrl+Up    { move-window-up; }
+    Mod+Ctrl+Right { move-column-right; }
+
+    Mod+Home 	  { focus-column-first; }
+    Mod+End  	  { focus-column-last; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End  { move-column-to-last; }
+
+    Mod+Shift+Left  { focus-monitor-left; }
+    Mod+Shift+Down  { focus-monitor-down; }
+    Mod+Shift+Up    { focus-monitor-up; }
+    Mod+Shift+Right { focus-monitor-right; }
+
+    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
+
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
+
+    // Want it, but guess it's not available now
+    //Mod+MouseExtra { focus-window-up; }
+    //Mod+MouseSide  { focus-window-down; }
+
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Mod+Shift+WheelScrollDown      { focus-column-right; }
+    Mod+Shift+WheelScrollUp        { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Ctrl+9 { move-column-to-workspace 9; }
+
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+Comma  	     { consume-window-into-column; }
+    Mod+Period 	     { expel-window-from-column; }
+
+    Mod+R 	{ switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R  { reset-window-height; }
+    Mod+F  	{ maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+
+    Mod+Ctrl+F { expand-column-to-available-width; }
+
+    Mod+C { center-column; }
+
+    Mod+Minus { set-column-width "-5%"; }
+    Mod+Equal { set-column-width "+5%"; }
+
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    Mod+V { toggle-window-floating; }
+
+    Mod+W { toggle-column-tabbed-display; }
+
+    Print      { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print  { screenshot-window; }
+
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
+    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+
+    Ctrl+Alt+Delete { quit; }
+    Mod+Shift+P { power-off-monitors; }
+}

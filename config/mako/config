@@ -1,0 +1,13 @@
+font=Terminess Nerd Font 14
+width=360
+margin=10
+padding=10
+border-size=2
+border-radius=8
+default-timeout=1700
+output=DP-1
+layer=overlay
+anchor=top-center
+
+border-color=#556f93
+background-color=#213c60
