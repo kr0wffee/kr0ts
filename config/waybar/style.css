@@ -1,0 +1,66 @@
+* {
+    all: unset;
+    font-family: "Terminess Nerd Font", "Font Awesome 6 Free";
+    font-size: 16px;
+}
+
+tooltip {
+    background-color: rgba(60, 67, 128, 0.8);
+    border-radius: 10px;
+    padding: 0 10px;
+}
+
+#logo, #window, .modules-center, #wireplumber, #language, #cpu-g, #memory, #tray {
+    background-color: rgba(60, 67, 128, 0.8);
+    border-radius: 10px;
+    padding: 0 10px;
+    transition: 0.2s;
+}
+
+#logo:hover {
+    background-color: rgba(60, 67, 128, 1.0);
+}
+#custom-artix-text {
+    padding-left: 8px;
+}
+
+#cpu {
+    margin-right: 8px;
+}
+
+#tray menu {
+    background-color: rgba(60,67,128,0.8);
+    padding: 6px;
+    border-radius: 14px;
+}
+#tray menu :hover {
+    background-color: rgb(75, 83, 150);
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+#custom-expanderTaskbar {
+    padding: 0 6px;
+}
+#custom-expanderMpris {
+    padding-right: 12px;
+}
+
+#mpris {
+    margin-right: 4px;
+}
+
+#taskbar {
+    margin-left: 4px;
+}
+#taskbar button {
+    margin: 0 6px;
+    transition: 0.1s;
+    border-bottom: 2px solid rgba(60, 67, 128, 1.0);
+}
+#taskbar button.active {
+    border-bottom-color: rgb(110, 115, 153);
+}
+#taskbar button:hover {
+    border-bottom-color: rgb(75, 83, 150);
+}

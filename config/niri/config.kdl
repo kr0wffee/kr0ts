@@ -2,13 +2,7 @@
 prefer-no-csd
 screenshot-path null
 // I don't use xdg-autostart btw
-spawn-at-startup "xwayland-satellite"
-spawn-at-startup "/home/nkee/.config/kr0ts/scripts/mpvwalls-daemon.sh"
-spawn-at-startup "swww-daemon"
-spawn-at-startup "telegram-desktop"
-spawn-at-startup "cider"
-spawn-at-startup "steam"
-spawn-at-startup "lutris"
+spawn-at-startup "/home/nkee/.config/kr0ts/scripts/startup.sh"
 
 
 input {
@@ -94,7 +88,7 @@ layout {
     struts {
         left 64
         right 64
-        top 16
+        top 0
         bottom 16
     }
 }
@@ -122,12 +116,12 @@ cursor {
 
 // Make an overview a bit larger (or smaller) and visible workspaces (cuz i turned off their bg)
 overview {
-    zoom 0.4
+    zoom 0.3
     workspace-shadow {
         softness 60
-	spread 10
-	offset x=0 y=0
-	color "#346dd8"
+        spread 10
+        offset x=0 y=0
+        color "#346dd8"
     }
 }
 
@@ -174,6 +168,7 @@ window-rule {
 // Maximized windows from start
 window-rule {
     match app-id=r#"^org\.telegram\.desktop$"# 
+    match app-id=r#"^steam$"#
 
     open-maximized true
 }
@@ -228,6 +223,11 @@ layer-rule {
     match namespace="^swww-daemon$"
     match namespace="^mpvpaper$"
     place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="^swayosd$"
+    geometry-corner-radius 12
 }
 
 
@@ -330,8 +330,8 @@ binds {
     Ctrl+Print { screenshot-screen; }
     Alt+Print  { screenshot-window; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "volumectl" "-u" "up"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "volumectl" "-u" "down"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
 
     Ctrl+Alt+Delete { quit; }

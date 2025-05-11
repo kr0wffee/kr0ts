@@ -1,4 +1,4 @@
-font=Terminess Nerd Font 14
+font=Terminess Nerd Font 12
 width=360
 margin=10
 padding=10
@@ -7,7 +7,7 @@ border-radius=8
 default-timeout=1700
 output=DP-1
 layer=overlay
-anchor=top-center
+anchor=top-left
 
 border-color=#556f93
 background-color=#213c60

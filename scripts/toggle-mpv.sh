@@ -1,4 +1,4 @@
 #!/bin/sh
 
-echo 'cycle pause' | socat - /tmp/mpv-socket
+killall mpvpaper
 notify-send "Mpvpaper" "Toggling.."
