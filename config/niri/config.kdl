@@ -225,11 +225,6 @@ layer-rule {
     place-within-backdrop true
 }
 
-layer-rule {
-    match namespace="^swayosd$"
-    geometry-corner-radius 12
-}
-
 
 // I don't really want to describe every bind, you already know what to do
 binds {
