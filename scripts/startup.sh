@@ -12,6 +12,9 @@ avizo-service &
 /home/nkee/.config/kr0ts/scripts/mpvwalls-daemon.sh &
 swww-daemon &
 
+# Waybar
+waybar &
+
 # NekoRay client
 /home/nkee/.local/share/nekoray/launcher &
 
