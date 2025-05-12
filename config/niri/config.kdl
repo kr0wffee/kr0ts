@@ -222,6 +222,7 @@ window-rule {
 layer-rule {
     match namespace="^swww-daemon$"
     match namespace="^mpvpaper$"
+    match namespace="^vibe background$"
     place-within-backdrop true
 }
 

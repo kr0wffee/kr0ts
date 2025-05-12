@@ -15,6 +15,9 @@ swww-daemon &
 # Waybar
 waybar &
 
+# Audio Visualiser
+vibe &
+
 # NekoRay client
 /home/nkee/.local/share/nekoray/launcher &
 

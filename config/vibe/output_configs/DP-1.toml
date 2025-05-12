@@ -1,0 +1,18 @@
+enable = true
+
+[[components]]
+
+[components.Graph]
+max_height = 0.25
+
+[components.Graph.audio_conf]
+sensitivity = 0.18
+easing = "OutElastic"
+
+[components.Graph.audio_conf.freq_range]
+start = 100
+end = 10000
+
+[components.Graph.variant.VerticalGradient]
+top = [137, 74, 108, 90] # [red, green, blue, alpha]
+bottom = [107, 137, 234, 30] # [red, green, blue, alpha]
